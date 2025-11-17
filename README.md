@@ -40,7 +40,7 @@ An **enterprise-style Kanban board application** with:
 - Bootstrap 5
 - HTML5
 - JSON data files
-- Node.js (for CLI tools)
+- Python (for CLI tools and data management)
 
 ---
 
@@ -90,7 +90,7 @@ An **enterprise-style Kanban board application** with:
 - **VS Code** - [Download](https://code.visualstudio.com/)
 - **GitHub Copilot** - Subscription required ([Free trial](https://github.com/features/copilot))
 - **Live Server Extension** - Install from VS Code Extensions (`ritwickdey.liveserver`)
-- **Node.js v20+** - [Download LTS](https://nodejs.org/) (verify: `node --version`)
+- **Python 3.8+** - [Download](https://www.python.org/downloads/) (verify: `python --version`)
 - **Git** - [Download](https://git-scm.com/) (verify: `git --version`)
 
 ### System Requirements
@@ -223,7 +223,7 @@ Throughout the tutorial, Copilot helps you:
 **Quick Diagnostics:**
 ```bash
 # Verify installations
-node --version    # Should show v20.0.0+
+python --version  # Should show Python 3.8+
 git --version     # Should show git version
 code --version    # Should show VS Code version
 ```
