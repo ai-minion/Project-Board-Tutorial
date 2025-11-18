@@ -36,11 +36,18 @@ An **enterprise-style Kanban board application** with:
 - 🔒 **Type-safe** TypeScript architecture
 
 **Tech Stack:**
-- TypeScript
-- Bootstrap 5
-- HTML5
-- JSON data files
-- Python (for CLI tools and data management)
+
+**Frontend (Browser):**
+- TypeScript - Type-safe client-side code
+- JavaScript - Browser interactivity
+- Bootstrap 5 - Responsive UI framework
+- HTML5 - Semantic markup
+
+**Backend (Data Management):**
+- Python 3.8+ - CLI tools & JSON file operations
+- JSON files - Data persistence
+
+**Architecture:** TypeScript handles UI and display logic in the browser, while Python manages data integrity and file operations through the `board_manager.py` module.
 
 ---
 
@@ -51,12 +58,13 @@ An **enterprise-style Kanban board application** with:
 <td width="50%">
 
 ### 💻 Technical Skills
-- TypeScript fundamentals & type safety
+- **TypeScript** - Type-safe frontend code & interfaces
+- **Python** - Backend data management & CLI tools
+- **JavaScript** - Browser DOM manipulation
 - Bootstrap 5 layouts & components
-- DOM manipulation & rendering
 - Event handling & state management
-- Data transformations & validation
-- CLI tool development
+- Data validation (both frontend & backend)
+- JSON file operations & persistence
 - Testing & debugging strategies
 
 </td>

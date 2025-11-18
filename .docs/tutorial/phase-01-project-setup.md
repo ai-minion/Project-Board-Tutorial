@@ -39,42 +39,70 @@ programming, avoid 'any' types, prefer const over let, use JSDoc comments"
 # GitHub Copilot Custom Instructions
 
 ## Project Overview
-This is an enterprise Kanban board application built with TypeScript, 
-Bootstrap 5, and JSON-based data storage. Focus on clean, typed code 
-with comprehensive documentation.
+This is an enterprise Kanban board application with a hybrid architecture:
+- **Frontend**: TypeScript, Bootstrap 5, vanilla JavaScript DOM manipulation
+- **Backend**: Python for data management and CLI tools
+- **Data Layer**: JSON files for persistence
+
+Focus on clean, typed code with comprehensive documentation in both languages.
 
 ## Technology Stack
+**Frontend:**
 - TypeScript (strict mode enabled)
 - Bootstrap 5.3.8 for UI components
 - Vanilla JavaScript DOM manipulation
+- Live Server extension for development
+
+**Backend:**
+- Python 3.8+ with type hints
+- Standard library: json, pathlib, datetime
+- board_manager.py module for data operations
+
+**Data:**
 - JSON files for data persistence
-- live-server for development
+- Shared format between TypeScript and Python
 
 ## Coding Conventions
+
+**TypeScript:**
 - Use TypeScript strict mode (no `any` types)
 - Prefer functional programming patterns
 - Use `const` over `let` where possible
 - All functions must have JSDoc comments
+- Interfaces for all data structures
+
+**Python:**
+- Use type hints for all function parameters and returns
+- Follow PEP 8 style guide
+- Use pathlib for file operations (not os.path)
+- Docstrings for all functions (Google style)
+- Prefer dataclasses for structured data
+
+**Shared:**
 - Use semantic HTML5 elements
 - Follow Bootstrap utility-first approach
+- ISO 8601 timestamps in JSON
+- Consistent naming across languages
 
 ## Architecture Patterns
-- Separate concerns: data layer, business logic, UI rendering
-- Pure functions for data transformations
-- Event delegation for dynamic content
-- DocumentFragment for batch DOM operations
-- Interfaces for all data structures
+- **Separation of concerns**: TypeScript handles UI, Python handles data
+- **Frontend (TypeScript)**: Rendering, events, user interactions
+- **Backend (Python)**: JSON file I/O, data validation, CLI tools
+- **Pure functions**: For data transformations in both languages
+- **Type safety**: TypeScript interfaces match Python type hints
 
 ## File Naming
 - TypeScript: PascalCase for interfaces, camelCase for functions
+- Python: snake_case for functions, PascalCase for classes
 - JSON: lowercase with hyphens (boards.json, tasks_main.json)
 - CSS: kebab-case for class names
 
 ## Preferences
 - Prioritize code clarity over brevity
-- Include error handling in all async operations
+- Include error handling in all file operations
 - Add accessibility attributes (ARIA) to interactive elements
-- Generate comprehensive JSDoc with @param, @returns, @example
+- Generate comprehensive documentation (JSDoc for TypeScript, docstrings for Python)
+- Use modern language features (ES2022 for TS, Python 3.8+ features)
 ```
 
 **📌 Key Learning Points:**
@@ -86,30 +114,54 @@ with comprehensive documentation.
 ### 1.2 Initialize Project Structure with Copilot
 
 **Technology Stack (Latest Versions - November 2025):**
+
+**Frontend:**
 - **TypeScript**: 5.9.3 (latest stable)
 - **Bootstrap**: 5.3.8 (latest stable)
-- **Node.js**: 20+ LTS (v24.11.1 recommended)
-- **Dev Server**: Vite 7.2.2 (recommended) OR live-server 1.2.2 (simpler)
+- **Dev Server**: live-server extension for VS Code
+
+**Backend:**
+- **Python**: 3.8+ (3.12+ recommended for latest features)
+- **Standard Library**: json, pathlib, datetime (no external packages required initially)
+
+**Architecture:** TypeScript/JavaScript handles browser UI, Python handles data management through `board_manager.py`
 
 **🤖 Copilot Techniques:**
 - **Context Setting**: Open Copilot Chat and describe your project goals
 - **Targeted Prompts**: Request one file/config at a time
 - **File Generation**: Ask Copilot to create specific configuration files
-- **Best Practices**: Request modern TypeScript configurations with explanations
+- **Best Practices**: Request modern TypeScript AND Python configurations with explanations
 - **Incremental Building**: Add complexity step-by-step, letting Copilot guide you
 
 **Example Prompts:**
 ```
-"What directory structure do you recommend for a TypeScript Kanban board 
-with separate documentation?"
+"What directory structure do you recommend for a hybrid TypeScript/Python 
+Kanban board with separate frontend and backend?"
 
 "Create a tsconfig.json for a TypeScript 5.9 project that compiles to ES2022 
-with strict mode enabled, outputting to a dist folder, using modern module resolution"
+with strict mode enabled, outputting to a dist folder"
 
-"Generate a package.json with TypeScript, live-server, and development 
-scripts for watch mode and serving"
+"Generate a Python requirements.txt for a project that only uses standard 
+library modules (json, pathlib, datetime) - should it be empty?"
 
-"Create a .gitignore file for a TypeScript project with Node.js"
+"Create a .gitignore file for a TypeScript + Python project"
+```
+
+**Project Structure:**
+```
+ProjectBoard/
+├── .github/
+│   └── copilot-instructions.md    # Copilot context (both TS & Python)
+├── .docs/                          # Tutorial documentation
+├── ProjectBoard/                   # Application code
+│   ├── html/                       # HTML files
+│   ├── css/                        # Stylesheets
+│   ├── js/                         # TypeScript/JavaScript (frontend)
+│   ├── data/                       # JSON data files
+│   └── board_manager.py            # Python backend module
+├── tsconfig.json                   # TypeScript configuration
+├── .gitignore                      # Git ignore patterns
+└── README.md                       # Project documentation
 ```
 
 **Incremental Workflow:**
@@ -117,16 +169,17 @@ scripts for watch mode and serving"
 1. Create .github directory in project root
 2. Create copilot-instructions.md inside .github/
 3. Open Copilot Chat (Ctrl+Alt+I)
-4. Describe project: "Building a TypeScript Kanban board..."
-5. Ask Copilot to generate custom instructions template
-6. Add project-specific conventions and patterns
+4. Describe project: "Building a TypeScript frontend + Python backend Kanban board..."
+5. Ask Copilot to generate custom instructions template for both languages
+6. Add project-specific conventions for TypeScript AND Python
 7. Request structure: "What directory structure do you recommend?"
-8. Create folders manually: ProjectBoard/, .docs/
-9. Generate tsconfig.json: Ask Copilot with specific prompt
-10. Review & understand: Ask "Why this setting?"
-11. Generate package.json: One file at a time
-12. Test each step: Run tsc --version, verify configs
-13. Refine if needed: "Add source maps for debugging"
+8. Create folders: ProjectBoard/ (with html/, css/, js/, data/ subfolders), .docs/
+9. Create board_manager.py in ProjectBoard/
+10. Generate tsconfig.json: Ask Copilot with specific prompt
+11. Set up Python environment (see section 1.2.5 below)
+12. Review & understand: Ask "Why this setting?"
+13. Test each step: Run tsc --version, python --version, verify configs
+14. Refine if needed: "Add source maps for debugging"
 ```
 
 **📌 Key Learning Points:**
@@ -140,6 +193,136 @@ scripts for watch mode and serving"
 - **Iterate and refine**: Start basic, enhance with follow-up prompts
 - **Learn from Copilot**: Study generated configs to understand best practices
 - **Update instructions**: As patterns emerge, add them to copilot-instructions.md
+
+### 1.2.5 Python Environment Setup with Copilot
+
+**Why Python for This Project?**
+- **Backend data management**: Read/write JSON files safely
+- **CLI tools**: Command-line task management
+- **Data validation**: Ensure JSON integrity before saving
+- **Type hints**: Modern Python type annotations similar to TypeScript
+
+**🤖 Copilot Techniques:**
+- **Virtual Environment**: Ask Copilot about venv best practices
+- **Module Structure**: Get guidance on Python project organization
+- **Type Hints**: Copilot adds modern type annotations automatically
+
+**Example Prompts:**
+```
+"Should I create a virtual environment for a simple Python project that 
+only uses standard library? What are the pros and cons?"
+
+"Create a board_manager.py module with functions to load and save JSON 
+files using pathlib and the json module. Include type hints."
+
+"What Python version should I target for modern type hints and pathlib 
+support? What's the minimum version?"
+```
+
+**Python Setup Steps:**
+
+**1. Verify Python Installation:**
+```bash
+python --version  # Should show 3.8 or higher
+```
+
+**2. Decide on Virtual Environment (Optional for this project):**
+
+Ask Copilot:
+```
+"For a project using only Python standard library (json, pathlib, datetime), 
+do I need a virtual environment or can I use the system Python?"
+```
+
+**Copilot's typical advice:**
+- ✅ **Use venv if**: You plan to add packages later (pytest, requests, etc.)
+- ✅ **Skip venv if**: Only using standard library and want simplicity
+- ✅ **Best practice**: Create venv anyway for isolation
+
+**3. Create Virtual Environment (Recommended):**
+
+**Windows:**
+```powershell
+# In project root
+python -m venv venv
+venv\Scripts\activate
+```
+
+**macOS/Linux:**
+```bash
+# In project root
+python3 -m venv venv
+source venv/bin/activate
+```
+
+**Verify activation:**
+```bash
+python --version  # Should still show Python 3.8+
+which python      # macOS/Linux: should point to venv
+where python      # Windows: should show venv path first
+```
+
+**4. Create requirements.txt:**
+
+For now, it's empty (using standard library only):
+```txt
+# requirements.txt
+# Using Python standard library only
+# Future: add pytest, click, pydantic if needed
+```
+
+Ask Copilot:
+```
+"Create a requirements.txt file for a Python project using only standard 
+library. What should I include? Should it list standard modules?"
+```
+
+**5. Update .gitignore for Python:**
+
+Ask Copilot to add Python patterns:
+```
+"Add Python-specific patterns to .gitignore: venv, __pycache__, .pyc files"
+```
+
+Copilot will suggest:
+```gitignore
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+```
+
+**📌 Key Learning Points:**
+- **Python 3.8+ minimum**: Required for modern type hints and pathlib
+- **Virtual environment optional**: Not required for standard library only
+- **Type hints are free**: No installation needed, built into Python 3.5+
+- **Standard library is powerful**: json, pathlib, datetime handle most needs
+- **Activate venv in terminal**: Must activate before running Python commands
+
+**Beginner Concept: What is a Virtual Environment?**
+
+Ask Copilot:
+```
+"Explain Python virtual environments to a beginner. Why use them? 
+How do they differ from the system Python?"
+```
+
+**Simple explanation:**
+- **Virtual environment**: Isolated Python installation for your project
+- **Why use it**: Prevents package conflicts between projects
+- **When to skip**: If only using standard library (like our project initially)
+- **When required**: When installing packages with pip
+
+**Python Project Checklist:**
+- [ ] Python 3.8+ installed (`python --version`)
+- [ ] Virtual environment created (optional but recommended)
+- [ ] venv activated (if created)
+- [ ] board_manager.py file created in ProjectBoard/
+- [ ] .gitignore includes Python patterns
+- [ ] Understand: TypeScript = frontend, Python = backend
 
 ### 1.3 Setup Development Environment with Copilot
 - Install Live Server extension in VS Code
@@ -175,8 +358,17 @@ scripts for watch mode and serving"
 
 **🚨 Beginner Troubleshooting: Common Setup Issues**
 
-**Problem: "node: command not found"**
-- **Cause**: Node.js not installed or not in PATH
+**Problem: "python: command not found" or "python3: command not found"**
+- **Cause**: Python not installed or not in PATH
+- **Solution**:
+  1. Download Python from [python.org](https://www.python.org/downloads/)
+  2. Run installer - **CHECK "Add Python to PATH"** during installation
+  3. Restart VS Code completely
+  4. Open new terminal in VS Code
+  5. Try both `python --version` and `python3 --version`
+
+**Problem: "node: command not found"** (if using TypeScript compilation)
+- **Cause**: Node.js not installed or not in PATH (TypeScript compiler runs on Node)
 - **Solution**: 
   1. Download Node.js from [nodejs.org](https://nodejs.org/)
   2. Run installer (use default settings)
@@ -186,8 +378,13 @@ scripts for watch mode and serving"
 
 **Problem: "tsc: command not found"**
 - **Cause**: TypeScript not installed yet
-- **Solution**: This is normal! We'll install it with `npm install`
-- **When**: After creating package.json in step 1.2
+- **Solution**: Install TypeScript globally: `npm install -g typescript`
+- **Verify**: `tsc --version`
+
+**Problem: Virtual environment not activating**
+- **Windows**: Use `venv\Scripts\activate` (backslashes)
+- **macOS/Linux**: Use `source venv/bin/activate` (forward slashes)
+- **PowerShell**: May need to run: `Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser`
 
 **Problem: Copilot not showing suggestions**
 - **Cause**: Copilot not activated or no subscription

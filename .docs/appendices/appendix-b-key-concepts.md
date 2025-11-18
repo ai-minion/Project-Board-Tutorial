@@ -4,6 +4,85 @@
 
 ---
 
+### Why TypeScript + Python Hybrid Architecture?
+
+**The Design Decision:**
+This project uses **TypeScript for the frontend** and **Python for the backend**, both operating on shared JSON data files. This isn't accidental—it's an intentional architecture that teaches real-world development patterns.
+
+**Frontend: TypeScript/JavaScript**
+- **Purpose**: Browser-side UI, interactivity, and display logic
+- **Why TypeScript**: Type safety, IDE autocomplete, compile-time error checking
+- **Runtime**: Executes in the browser
+- **Responsibilities**:
+  - Render tasks and boards visually
+  - Handle user interactions (clicks, form submissions)
+  - Filter and sort tasks for display
+  - Client-side validation before submission
+
+**Backend: Python**
+- **Purpose**: Data management, file operations, CLI tools
+- **Why Python**: Robust file I/O, excellent JSON handling, simple CLI development
+- **Runtime**: Executes on your computer (not in browser)
+- **Responsibilities**:
+  - Read and write JSON files safely
+  - Validate data integrity before saving
+  - Generate task IDs and timestamps
+  - Command-line task management
+
+**Shared Layer: JSON Files**
+- **boards.json**: Board configurations
+- **tasks_*.json**: Task data files
+- **Format**: Both TypeScript and Python can read/write JSON natively
+
+**Why Not Just One Language?**
+
+**Could we use only JavaScript/TypeScript?**
+- ✅ Yes, Node.js could handle file operations
+- ❌ Misses learning opportunity for polyglot development
+- ❌ TypeScript tooling better for browser, Python better for file I/O
+- ❌ Doesn't teach separation of frontend/backend concerns
+
+**Could we use only Python?**
+- ✅ Yes, Python can generate HTML/JavaScript
+- ❌ Loses type safety in browser code
+- ❌ Misses modern frontend development patterns
+- ❌ Browser JavaScript is unavoidable in real projects
+
+**What You Learn from This Architecture:**
+1. **Separation of Concerns**: Frontend displays, backend persists
+2. **Polyglot Development**: Modern projects often use multiple languages
+3. **Type Safety**: Both languages provide it (TypeScript interfaces, Python type hints)
+4. **API Thinking**: Frontend and backend communicate through data (JSON)
+5. **Real-World Pattern**: Similar to React frontend + Python/Django backend
+
+**Data Flow Example:**
+```
+User clicks "Add Task" button
+  ↓ (TypeScript handles UI)
+Form data collected in browser
+  ↓ (TypeScript validates)
+Data sent to Python CLI tool
+  ↓ (Python validates)
+JSON file updated with new task
+  ↓ (Python ensures integrity)
+Frontend re-reads JSON
+  ↓ (TypeScript renders)
+User sees updated board
+```
+
+**When Would You Use This Pattern?**
+- Web applications with local data storage
+- Desktop apps with web UI (Electron + Python backend)
+- Prototypes before building full API
+- Educational projects teaching full-stack concepts
+
+**When to Use a Different Pattern?**
+- Pure static site → Only HTML/CSS/JavaScript
+- Simple Python script → Only Python (no web UI)
+- Enterprise app → Add REST API between TypeScript and Python
+
+---
+
 ### Why JSON Files Instead of a Database?
 
 **Pros:**

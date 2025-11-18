@@ -30,8 +30,8 @@ This tutorial demonstrates **how to use GitHub Copilot** to build a complete ent
   - *New to JavaScript?* Complete [MDN JavaScript First Steps](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps) (4 hours)
 
 **Helpful But Not Required (We'll Learn Together):**
-- TypeScript syntax (we'll explain as we go)
-- Async/await (Copilot helps with this)
+- Python basics (we'll explain as we go)
+- File I/O and JSON handling (Copilot helps with this)
 - DOM manipulation (tutorial teaches this)
 - Bootstrap framework (we'll use with Copilot's help)
 - Command line basics (we provide exact commands)
@@ -44,10 +44,10 @@ This tutorial demonstrates **how to use GitHub Copilot** to build a complete ent
   - *Current Version*: 5.7.9 (as of November 2025)
   - *How to install*: VS Code → Extensions (Ctrl+Shift+X) → Search "Live Server" → Install
   - *How to verify*: Look for "Go Live" button in bottom-right status bar
-- ✅ **Node.js**: Version 20+ LTS recommended ([Download here](https://nodejs.org/))
-  - *Latest LTS*: v24.11.1 (as of November 2025)
-  - *Minimum supported*: v20.0.0
-  - *How to verify*: Open terminal, run `node --version` (should show v20.0.0 or higher)
+- ✅ **Python**: Version 3.8+ recommended ([Download here](https://www.python.org/downloads/))
+  - *Latest stable*: 3.12+ (as of November 2025)
+  - *Minimum supported*: 3.8.0
+  - *How to verify*: Open terminal, run `python --version` (should show 3.8.0 or higher)
 - ✅ **Git**: For version control ([Download here](https://git-scm.com/))
   - *How to verify*: Run `git --version` in terminal
 
@@ -57,7 +57,17 @@ This tutorial demonstrates **how to use GitHub Copilot** to build a complete ent
 - 500MB free disk space
 - Internet connection (for Copilot and CDN resources)
 
-**The Project:** An enterprise Kanban board with multi-board support, task tracking, and activity logging using HTML, Bootstrap 5, TypeScript, and JSON data files.
+**The Project:** An enterprise Kanban board with multi-board support, task tracking, and activity logging.
+
+**Technology Architecture:**
+- **Frontend**: HTML5, Bootstrap 5, TypeScript/JavaScript (browser-side UI and interactions)
+- **Backend**: Python 3.8+ with `board_manager.py` (data management and CLI tools)
+- **Data Layer**: JSON files for persistence (shared between frontend and backend)
+
+**Why This Architecture?**
+- **TypeScript**: Type-safe browser code, IDE autocomplete, compile-time error checking for UI
+- **Python**: Robust file I/O, data validation, CLI tools for backend operations
+- **Separation of Concerns**: Frontend displays data, backend ensures data integrity
 
 **Project Workflow:**
 This tutorial follows a structured workflow that demonstrates the Kanban system in action:
@@ -87,10 +97,10 @@ While the system supports multiple boards, this tutorial uses a **single board**
 - Creating the roadmap and initial task structure
 
 **[Phase 2: Data Layer Foundation](tutorial/phase-02-data-layer.md)**
-- TypeScript interfaces and type definitions
+- Python data models and classes
 - JSON data file structure
 - Data loading and validation
-- Building type-safe data access patterns
+- Building data access patterns with Python
 
 **[Phase 3: Core Logic & Data Transformations](tutorial/phase-03-core-logic.md)**
 - Task filtering and organization
@@ -123,9 +133,9 @@ While the system supports multiple boards, this tutorial uses a **single board**
 - Data persistence strategies
 
 **[Phase 8: CLI Integration & Tools](tutorial/phase-08-cli-integration.md)**
-- Command-line task management
-- Automation scripts
-- Developer tools
+- Python CLI for task management
+- Automation scripts with Python
+- Developer tools and utilities
 - Workflow optimization
 
 **[Phase 9: Testing & Refinement](tutorial/phase-09-testing-refinement.md)**
@@ -183,7 +193,7 @@ While the system supports multiple boards, this tutorial uses a **single board**
 |-----------------|----------------|-------|
 | **Complete Beginner** | 10-12 hours | New to web dev, learning fundamentals |
 | **Some JS Experience** | 6-8 hours | Familiar with JavaScript basics |
-| **TypeScript Familiar** | 4-6 hours | Know TypeScript, learning Copilot |
+| **Python Familiar** | 4-6 hours | Know Python, learning Copilot |
 | **Copilot Experienced** | 3-4 hours | Efficient with Copilot workflows |
 
 ### Recommended Learning Paths
@@ -195,13 +205,13 @@ While the system supports multiple boards, this tutorial uses a **single board**
 4. Review Appendix B for concepts
 5. **Total Time:** ~20 hours
 
-**Path 2: Web Developer (New to TypeScript/Copilot)**
+**Path 2: Web Developer (New to Python/Copilot)**
 1. Skim Phase 1 (setup familiar, focus on Copilot workflow) - 30 min
-2. Follow Phases 2-10 carefully (learning TypeScript + Copilot) - 6 hours
+2. Follow Phases 2-10 carefully (learning Python CLI + Copilot) - 6 hours
 3. Review Appendix C for Copilot mastery
 4. **Total Time:** ~7 hours
 
-**Path 3: TypeScript Developer (New to Copilot)**
+**Path 3: Python Developer (New to Copilot)**
 1. Quick setup (Phase 1) - 20 min
 2. Focus on Copilot prompting techniques in each phase - 4 hours
 3. Deep dive Appendix C for Copilot workflows
@@ -234,7 +244,7 @@ This isn't just a coding tutorial—it teaches **professional development practi
 - Validation checkpoints
 
 **Copilot as Teacher:**
-Throughout the tutorial, Copilot isn't just generating code—it's explaining concepts, suggesting best practices, and helping you learn TypeScript, Bootstrap, and modern web development.
+Throughout the tutorial, Copilot isn't just generating code—it's explaining concepts, suggesting best practices, and helping you learn Python, JavaScript, Bootstrap, and modern web development.
 
 ---
 
@@ -258,7 +268,7 @@ Throughout the tutorial, Copilot isn't just generating code—it's explaining co
 
 **What You'll Achieve:**
 - ✅ Complete, functional Kanban board application
-- ✅ Deep understanding of TypeScript and modern web development
+- ✅ Deep understanding of Python, JavaScript, and modern web development
 - ✅ Mastery of GitHub Copilot workflows
 - ✅ Portfolio-ready project demonstrating AI-assisted development
 - ✅ Foundation for building complex applications with Copilot

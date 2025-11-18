@@ -4,10 +4,16 @@
 
 ---
 
-**Goal:** Use Copilot to generate tests and identify edge cases  
-**Duration:** ~45 minutes
+**Goal:** Test both frontend (TypeScript) and backend (Python) with Copilot's help  
+**Duration:** ~60 minutes  
+**Scope:** Frontend browser testing + Backend Python testing with pytest
 
-### 9.1 Test Scenario Generation with Copilot
+**Architecture Reminder:**
+- **Frontend Testing**: TypeScript/JavaScript code that runs in the browser
+- **Backend Testing**: Python code in `board_manager.py` module
+- **Integration Testing**: Both working together through JSON files
+
+### 9.1 Frontend Test Scenario Generation with Copilot (TypeScript)
 - Use Copilot Chat to brainstorm test cases
 - Generate test data with Copilot
 - Get edge case suggestions from Copilot
@@ -263,6 +269,270 @@ Board switch (total)            <300ms        <500ms
 Real-time update cycle          <50ms         <100ms
 Memory growth (per switch)      <1MB          <5MB
 ```
+
+### 9.4 Backend Testing with Python and Copilot
+
+**Goal:** Test Python `board_manager.py` functions with pytest  
+**Why pytest:** Industry standard, excellent Copilot support, clear output
+
+**🤖 Copilot Techniques:**
+- **Test Generation**: Copilot writes complete pytest functions
+- **Fixture Creation**: Copilot generates test data and setup/teardown
+- **Edge Cases**: Copilot suggests comprehensive test scenarios
+- **Mocking**: Copilot shows how to mock file operations
+
+**Example Prompts:**
+```python
+"Create pytest tests for a Python function load_json_file(file_path) that 
+should test: valid JSON, malformed JSON, missing file, empty file. Include 
+fixtures for test data."
+
+"Generate pytest tests for validate_task() function checking all required 
+fields, timestamp ordering, and boardId references. Use parametrize for 
+multiple test cases."
+
+"Write pytest tests for generate_task_id() ensuring sequential IDs, handling 
+empty task list, and testing ID format (task-001, task-002, etc.)"
+```
+
+**Setup pytest (Optional - For Automated Testing):**
+
+```bash
+# Activate virtual environment first
+# Windows: venv\Scripts\activate
+# macOS/Linux: source venv/bin/activate
+
+# Install pytest
+pip install pytest
+
+# Update requirements.txt
+echo "pytest>=7.4.0" >> requirements.txt
+```
+
+**📌 Key Learning Points:**
+- **pytest discovers tests**: Files named `test_*.py` or `*_test.py`
+- **Test functions**: Start with `test_` prefix
+- **Assertions**: Use simple `assert` statements
+- **Fixtures**: Reusable test data with `@pytest.fixture`
+- **Parametrize**: Run same test with different inputs
+
+**🤖 Copilot Workflow - Generate Python Tests:**
+
+**Step 1: Create test file**
+- File: `test_board_manager.py` (in ProjectBoard/ directory)
+- Copilot will recognize the naming pattern
+
+**Step 2: Import and create fixtures**
+```python
+import pytest
+from pathlib import Path
+from board_manager import load_json_file, validate_task, generate_task_id
+
+# Ask Copilot to generate fixture for sample task data
+@pytest.fixture
+def sample_task():
+    """Sample valid task for testing."""
+    # Copilot generates complete task dictionary
+```
+
+**Step 3: Write test function signature**
+```python
+def test_load_json_file_valid():
+    """Test loading a valid JSON file."""
+    # Copilot generates:
+    # - Create temp JSON file
+    # - Call load_json_file()
+    # - Assert result matches expected
+    # - Cleanup
+```
+
+**Step 4: Generate edge case tests**
+```python
+def test_load_json_file_malformed():
+    """Test handling of malformed JSON."""
+    # Copilot generates exception testing
+```
+
+**Example: Testing validate_task() with Copilot**
+
+**Copilot Chat Prompt:**
+```
+"Create comprehensive pytest tests for this Python function:
+
+def validate_task(task: dict, board_data: dict) -> tuple[bool, list[str]]:
+    '''Validate task has required fields and valid references.'''
+    ...
+
+Test cases needed:
+- Valid task (should pass)
+- Missing required fields (id, title, status, boardId)
+- Invalid boardId reference
+- Invalid status column
+- Timestamp ordering issues (createdAt > startedAt)
+- Activity ID uniqueness
+
+Use pytest parametrize for multiple invalid field tests."
+```
+
+**Copilot generates:**
+```python
+import pytest
+from board_manager import validate_task
+
+@pytest.fixture
+def valid_board_data():
+    return {
+        "id": "main-board",
+        "columns": [
+            {"id": "backlog", "name": "Backlog"},
+            {"id": "in_progress", "name": "In Progress"},
+            {"id": "done", "name": "Done"}
+        ]
+    }
+
+@pytest.fixture
+def valid_task():
+    return {
+        "id": "task-001",
+        "title": "Test Task",
+        "status": "backlog",
+        "boardId": "main-board",
+        "createdAt": "2025-11-17T10:00:00Z",
+        "activities": []
+    }
+
+def test_validate_task_valid(valid_task, valid_board_data):
+    """Valid task should pass validation."""
+    is_valid, errors = validate_task(valid_task, valid_board_data)
+    assert is_valid is True
+    assert len(errors) == 0
+
+@pytest.mark.parametrize("missing_field", ["id", "title", "status", "boardId"])
+def test_validate_task_missing_fields(valid_task, valid_board_data, missing_field):
+    """Task missing required fields should fail."""
+    task = valid_task.copy()
+    del task[missing_field]
+    is_valid, errors = validate_task(task, valid_board_data)
+    assert is_valid is False
+    assert any(missing_field in err for err in errors)
+
+def test_validate_task_invalid_status(valid_task, valid_board_data):
+    """Task with invalid status should fail."""
+    task = valid_task.copy()
+    task["status"] = "invalid-column"
+    is_valid, errors = validate_task(task, valid_board_data)
+    assert is_valid is False
+    assert any("status" in err.lower() for err in errors)
+
+# Copilot continues generating more test cases...
+```
+
+**Running pytest:**
+```bash
+# Run all tests
+pytest
+
+# Run with verbose output
+pytest -v
+
+# Run specific test file
+pytest test_board_manager.py
+
+# Run tests matching pattern
+pytest -k "validate"
+
+# Show print statements
+pytest -s
+```
+
+**📌 Manual Testing for Python (Alternative to pytest)**
+
+If you prefer manual testing without installing pytest:
+
+**Create test script:**
+```python
+# test_manual.py
+from board_manager import load_json_file, validate_task, generate_task_id
+from pathlib import Path
+
+def test_load_valid_json():
+    """Manually test loading valid JSON."""
+    try:
+        result = load_json_file(Path("data/boards.json"))
+        print(f"✓ Load valid JSON: {result is not None}")
+    except Exception as e:
+        print(f"✗ Load valid JSON failed: {e}")
+
+def test_validate_task_valid():
+    """Manually test task validation."""
+    task = {
+        "id": "task-001",
+        "title": "Test",
+        "status": "backlog",
+        "boardId": "main"
+    }
+    board_data = {
+        "id": "main",
+        "columns": [{"id": "backlog", "name": "Backlog"}]
+    }
+    is_valid, errors = validate_task(task, board_data)
+    if is_valid:
+        print("✓ Task validation passed")
+    else:
+        print(f"✗ Task validation failed: {errors}")
+
+if __name__ == "__main__":
+    print("Running manual tests...")
+    test_load_valid_json()
+    test_validate_task_valid()
+    print("Tests complete!")
+```
+
+**Run manual tests:**
+```bash
+python test_manual.py
+```
+
+**Testing Checklist - Backend (Python):**
+- [ ] `load_json_file()` handles valid JSON
+- [ ] `load_json_file()` raises error on malformed JSON
+- [ ] `load_json_file()` raises error on missing file
+- [ ] `validate_task()` accepts valid tasks
+- [ ] `validate_task()` rejects missing required fields
+- [ ] `validate_task()` rejects invalid status values
+- [ ] `validate_task()` rejects invalid boardId
+- [ ] `validate_task()` checks timestamp ordering
+- [ ] `generate_task_id()` creates sequential IDs
+- [ ] `generate_task_id()` handles empty task list
+- [ ] `add_task()` writes valid JSON file
+- [ ] `move_task()` updates status and timestamps correctly
+
+**Integration Testing (Frontend + Backend):**
+1. **Setup**: Create test JSON files
+2. **Backend**: Use Python to add a task
+3. **Frontend**: Reload page, verify task appears
+4. **Backend**: Use Python to move task to "done"
+5. **Frontend**: Reload, verify task moved and timestamp set
+6. **Cleanup**: Restore original JSON files
+
+**🤖 Ask Copilot for Integration Test Plan:**
+```
+"Create an integration test plan for a Kanban board with TypeScript frontend 
+and Python backend, both using JSON files. Include steps to test: adding tasks 
+via Python CLI, verifying in browser, modifying via Python, confirming changes 
+in UI."
+```
+
+✅ **Validation Checkpoint - Backend:**
+Before moving to Phase 10, verify:
+- [ ] All Python functions have tests (pytest or manual)
+- [ ] Edge cases covered (empty files, malformed JSON, missing fields)
+- [ ] File operations tested (read, write, validate)
+- [ ] Integration tested (Python writes → TypeScript reads)
+- [ ] Error messages are clear and helpful
+- [ ] All tests pass (pytest shows green, or manual tests print ✓)
+
+### 9.5 Final Refinement
 
 ---
 

@@ -4,10 +4,17 @@
 
 ---
 
-**Goal:** Learn how Copilot accelerates function implementation  
-**Duration:** ~60 minutes
+**Goal:** Build logic for frontend (TypeScript) and understand backend separation  
+**Duration:** ~60 minutes  
+**Focus:** TypeScript functions for browser-side data operations
 
-### 3.1 Data Loading Module with Copilot
+**Architecture Reminder:**
+- **This Phase (Frontend)**: TypeScript functions that run in the browser
+- **Data Loading**: Fetch and parse JSON files for display
+- **Data Transformation**: Filter, sort, calculate for UI purposes
+- **Backend (Python)**: Handles actual file writes (covered in Phase 8)
+
+### 3.1 Data Loading Module with Copilot (TypeScript - Frontend)
 - Use Copilot to generate async fetch functions
 - Get error handling suggestions from Copilot
 - Generate type guards with Copilot's help
@@ -38,6 +45,27 @@ logic on failure"
 - **Pattern recognition**: Copilot applies best practices from similar codebases
 - **Iterative improvement**: Generate basic version → test → ask "add error handling" → enhance
 - **One function at a time**: Master data loading before transformation
+
+**🎯 Important: Frontend vs Backend Logic**
+
+**Frontend (This Phase - TypeScript):**
+- ✅ **Read** JSON files via fetch()
+- ✅ **Display** data in the browser
+- ✅ **Filter/sort** for viewing
+- ✅ **Client-side validation** before sending to backend
+- ❌ **No writing** to JSON files (browser can't directly write files)
+
+**Backend (Phase 8 - Python):**
+- ✅ **Read** JSON files via pathlib
+- ✅ **Write** JSON files safely
+- ✅ **Data integrity** validation
+- ✅ **CLI tools** for task management
+
+**Why This Split?**
+- Browsers cannot write to local files for security reasons
+- Python `board_manager.py` handles all file modifications
+- TypeScript reads JSON and displays it
+- Users interact with UI → data sent to Python → Python updates files → TypeScript re-reads
 
 **Incremental Function Building:**
 
